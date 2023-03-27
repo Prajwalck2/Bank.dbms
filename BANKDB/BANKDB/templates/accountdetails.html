@@ -1,0 +1,89 @@
+{% extends 'adminbase.html' %}
+
+{% block title %}
+ACCOUNT DETAILS
+{% endblock title %}
+
+{% block body %}
+
+{% with messages=get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+
+            <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+            {{message}}
+
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+           </div>
+
+
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+  <div class="container mt-4">
+    <div class="row">
+        <h4 class="text-center bg-dark text-white">Enter Account Number</h4>
+    <br>
+
+    <form action="/accountdetails" method="post" class="jumbotron" style="background-color:black">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+            <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+    
+     
+    
+      <div class="form-group">
+    
+        <input type="password" class="form-control" id="number"  name="number" placeholder="Account Number" required>
+      
+      </div>
+      <button type="submit" class="btn btn-success btn-sm btn-block">Search</button>
+    </form>
+
+
+        
+<table class="table table-dark table-hover">
+    <tr>
+    
+    <th scope="col">ACCOUNT ID</th>
+    <th scope="col">ACCOUNT NUMBER</th>
+    <th scope="col">TYPE OF ACCOUNT</th>
+    <th scope="col">NAME OF HOLDER</th>
+    <th scope="col">EMAIL</th>
+    <th scope="col">GENDER</th>
+    <th scope="col">DATE OF BIRTH</th>
+    <th scope="col">ADDRESS</th>
+    <th scope="col">PHONE NUMBER</th>
+    <th scope="col">BALANCE</th>
+    </tr>
+    <tbody>
+    <tr>
+        {% for post in que %}
+        <th scope="row">{{post.id}}</th>
+        <td>{{post.anumber}}</td>
+        <td>{{post.atype}}</td>
+        <td>{{post.aname}}</td>
+        <td>{{post.cemail}}</td>
+        <td>{{post.agender}}</td>
+        <td>{{post.adob}}</td>
+        <td>{{post.aaddress}}</td>
+        <td>{{post.aphone}}</td>
+        <td>{{post.abalance}}</td>
+        
+
+
+        
+    </tr>
+
+
+       
+    {% endfor %}
+
+    
+</table>
+
+
+{% endblock body %}

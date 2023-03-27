@@ -1,0 +1,112 @@
+{% extends 'adminbase.html' %}
+
+{% block title %}
+Add Branch
+{% endblock title %}
+
+{% block body %}
+
+<div class="container mt-4">
+<div class="row">
+
+<div class="col-md-5">
+    <div class="card" style="width: 25rem;">
+        <img src="static\images\download.jpg" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">BANK</h5>
+          <p class="card-text">Faithful, Friendly.</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">A Tradition of Trust</li>
+          <li class="list-group-item">Your Perfect Banking Partner</li>
+          <li class="list-group-item">Experience our Expertise</li>
+        </ul>
+        
+      </div>
+
+
+</div>
+
+<div class="col-md-5">
+
+    <h4 class="text-center bg-dark text-white">Enter Branch Details</h4>
+    <br>
+
+    {% with messages=get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+
+            <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+            {{message}}
+
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+           </div>
+
+
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+    
+    
+    
+    
+    
+    
+    <form action="/addbranch" method="post" class="jumbotron">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+            <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+    
+     
+    
+     
+    
+      <div class="form-group">
+      
+        <input type="text" class="form-control" id="name" name="name" placeholder="Branch Name" required>
+      
+      </div>
+
+      <div class="form-group">
+      
+        <input type="text" class="form-control" id="code" name="code" placeholder="Branch Code" required>
+      
+      </div>
+    
+     
+      
+    
+    <div class="form-group">
+        <input type="text" class="form-control" name="address" placeholder="Address" required>
+    
+    </div>
+    
+      <div class="form-group">
+    
+        <input type="number" class="form-control" id="pnumber" name="pnumber" placeholder="Phone Number" required>
+      
+      </div>
+
+      
+
+
+      
+    
+      
+      <button type="submit" class="btn btn-success btn-sm btn-block">Create</button>
+    </form>
+
+
+</div>
+
+</div>
+
+
+
+</div>
+
+
+
+{% endblock body %}

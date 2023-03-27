@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}
+BRANCH
+{% endblock title %}
+
+{% block body %}
+
+{% with messages=get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+
+            <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+            {{message}}
+
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+           </div>
+
+
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+<table class="table table-dark table-hover">
+    <tr>
+    
+    <th scope="col">BRANCH ID</th>
+    <th scope="col">NAME</th>
+    <th scope="col">BRANCH CODE</th>
+    <th scope="col">ADDRESS</th>
+    <th scope="col">BRANCH PHONE</th>
+    
+    
+    </tr>
+    <tbody>
+    <tr>
+        {% for post in query %}
+        <th scope="row">{{post.id}}</th>
+        <td>{{post.name}}</td>
+        <td>{{post.bcode}}</td>
+        <td>{{post.address}}</td>
+        <td>{{post.bphone}}</td>
+        
+       
+        
+
+
+        
+    </tr>
+       
+    {% endfor %}
+
+    
+</table>
+
+
+{% endblock body %}
