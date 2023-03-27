@@ -1,0 +1,306 @@
+#include<fstream>
+#include<conio.h>
+#include<iostream>
+#include<string.h>
+#include<stdlib.h>
+#include<stdio.h>
+using namespace std;
+#define clrscr(); system("cls");
+class record
+{
+private: char vid[100],aadhar[100],name[100],age[100],gender[100],add[100],reg[100];
+public: void pack();
+	void unpack();
+	void search();
+	void update();
+	void del();
+	void region();
+};
+void record :: pack()
+{
+clrscr();
+cout<<"--------------------------------------"<<endl;
+cout<<"  ENTER THE DEATAILS  "<<endl;
+cout<<"--------------------------------------"<<endl;
+cout<<"  Voter ID : ";
+cin>>vid;
+cout<<" "<<endl;
+cout<<"  Aadhar Number : ";
+cin>>aadhar;
+cout<<" "<<endl;
+cout<<"  Name : ";
+cin>>name;
+cout<<" "<<endl;
+cout<<"  Age  : ";
+cin>>age;
+cout<<" "<<endl;
+cout<<"  Gender : ";
+cin>>gender;
+cout<<" "<<endl;
+cout<<"  Address : ";
+cin>>add;
+cout<<" "<<endl;
+cout<<"  Region : ";
+cin>>reg;
+cout<<" "<<endl;
+fstream pk;
+pk.open("vid.txt",ios::app | ios::out);
+pk<<" "<<vid<<" "<<aadhar<<" "<<name<<" "<<age<<" "<<gender<<" "<<add<<" "<<reg<<"\n";
+pk.close();
+}
+void record :: unpack()
+{
+int total=1;
+clrscr();
+fstream upk;
+upk.open("vid.txt",ios::in);
+cout<<"--------------------------------------------"<<endl;
+cout<<"  ALL VOTER DETAILS  "<<endl;
+cout<<"--------------------------------------------"<<endl;
+if(!upk)
+{
+	cout<<"No Data Is Present..."<<endl;
+	upk.close();
+}
+else
+{
+	upk>>vid>>aadhar>>name>>age>>gender>>add>>reg;
+	
+
+
+while(!upk.eof())
+{
+cout<<"  Voter ID      : "<<vid<<endl;
+cout<<" "<<endl;
+cout<<"  Aadhar Number : "<<aadhar<<endl;
+cout<<" "<<endl;
+cout<<"  Name          : "<<name<<endl;
+cout<<" "<<endl;
+cout<<"  Age           : "<<age<<endl;
+cout<<" "<<endl;
+cout<<"  Gender        : "<<gender<<endl;
+cout<<" "<<endl;
+cout<<"  Address       : "<<add<<endl;
+cout<<" "<<endl;
+cout<<"  Region        : "<<reg<<endl;
+cout<<"--------------------------------------------"<<endl;
+upk>>vid>>aadhar>>name>>age>>gender>>add>>reg;
+
+}
+}
+getch();
+upk.close();
+}
+
+
+void record :: search()
+{
+clrscr();
+char svid[10];
+fstream ser;
+ser.open("vid.txt",ios::in);
+cout<<"------------------------------------------"<<endl;
+cout<<"                SEARCH                    "<<endl;
+cout<<"------------------------------------------"<<endl;
+cout<<"  Enter the Voter ID Number : ";
+cin>>svid;
+if(!ser)
+{
+	cout<<"No Data Is Present"<<endl;
+	ser.close();
+}
+else
+{
+	ser>>vid>>aadhar>>name>>age>>gender>>add>>reg;
+while(!ser.eof())
+{
+if(strcmp(vid,svid)==0)
+{
+cout<<" "<<endl;
+cout<<"  Search Success "<<endl;
+cout<<" "<<endl;
+cout<<"------------------------------------------"<<endl;
+cout<<"  Voter ID      : "<<vid<<endl;
+cout<<" "<<endl;
+cout<<"  Aadhar Number : "<<aadhar<<endl;
+cout<<" "<<endl;
+cout<<"  Name          : "<<name<<endl;
+cout<<" "<<endl;
+cout<<"  Age           : "<<age<<endl;
+cout<<" "<<endl;
+cout<<"  Gender        : "<<gender<<endl;
+cout<<" "<<endl;
+cout<<"  Address       : "<<add<<endl;
+cout<<" "<<endl;
+cout<<"  Region        : "<<reg<<endl;
+cout<<"--------------------------------------------"<<endl;
+}
+ser>>vid>>aadhar>>name>>age>>gender>>add>>reg;
+}
+}
+ser.close();
+getch();
+}
+
+void record :: update()
+{
+clrscr();
+char svid[11];
+int found=0;
+fstream file,file1;
+cout<<"------------------------------------------"<<endl;
+cout<<"                MODIFY                    "<<endl;
+cout<<"------------------------------------------"<<endl;
+file.open("vid.txt",ios::in);
+if(!file)
+{
+	cout<<"No Data Is Present..."<<endl;
+	file.close();
+}
+else
+{
+cout<<"  Enter the Aadhar number : ";
+cin>>svid;
+file1.open("record.txt",ios::app|ios::out);
+file>>vid>>aadhar>>name>>age>>gender>>add>>reg;
+while(!file.eof())
+{
+if(strcmp(vid,svid)==0)
+{
+cout<<" "<<endl;
+cout<<"  Search Success "<<endl;
+cout<<" "<<endl;
+cout<<"------------------------------------------"<<endl;
+cout<<"      Enter the choice to modify          "<<endl;
+cout<<"------------------------------------------"<<endl;
+cout<<" 1.Name  "<<endl;
+cout<<" 2.Age "<<endl;
+cout<<" 3.Gender "<<endl;
+cout<<" 4.Address "<<endl;
+cout<<" 5.Region "<<endl;
+cout<<" 6.Exit "<<endl;
+cout<<"------------------------------------------"<<endl;
+int ch;
+cin>>ch;
+switch(ch)
+{
+case 1:cout<<"Name : ";cin>>name;break;
+case 2:cout<<"Age : ";cin>>age;break;
+case 3:cout<<"Gender : ";cin>>gender;break;
+case 4:cout<<"Address : ";cin>>add;break;
+case 5:cout<<"Region : ";cin>>reg;break;
+case 6:exit(0);
+}
+file1<<" "<<vid<<" "<<aadhar<<" "<<name<<" "<<age<<" "<<gender<<" "<<add<<" "<<reg<<"\n";
+found++;
+}
+else{
+	file1<<" "<<vid<<" "<<aadhar<<" "<<name<<" "<<age<<" "<<gender<<" "<<add<<" "<<reg<<"\n";
+}
+file>>vid>>aadhar>>name>>age>>gender>>add>>reg;
+}
+if(found==0)
+{
+	cout<<"Voter Id Not Found, Please Try Again.."<<endl;
+}
+file1.close();
+file.close();
+remove("vid.txt");
+rename("record.txt","vid.txt");
+}
+}
+
+void record :: region()
+{
+clrscr();
+char sreg[11];
+fstream ifile;
+ifile.open("vid.txt",ios::in);
+cout<<"------------------------------------------"<<endl;
+cout<<"            REGIONAL RECORDS              "<<endl;
+cout<<"------------------------------------------"<<endl;
+cout<<"  Enter the Regional Code : ";
+cin>>sreg;
+if(!ifile)
+{
+	cout<<"No Data is Present..."<<endl;
+	ifile.close();
+}
+else
+{
+	ifile>>vid>>aadhar>>name>>age>>gender>>add>>reg;
+
+while(!ifile.eof())
+{
+if(strcmp(reg,sreg)==0)
+{
+cout<<" "<<endl;
+cout<<"  Search Success "<<endl;
+cout<<" "<<endl;
+cout<<"------------------------------------------"<<endl;
+cout<<"  Voter ID      : "<<vid<<endl;
+cout<<" "<<endl;
+cout<<"  Aadhar Number : "<<aadhar<<endl;
+cout<<" "<<endl;
+cout<<"  Name          : "<<name<<endl;
+cout<<" "<<endl;
+cout<<"  Age           : "<<age<<endl;
+cout<<" "<<endl;
+cout<<"  Gender        : "<<gender<<endl;
+cout<<" "<<endl;
+cout<<"  Address       : "<<add<<endl;
+cout<<" "<<endl;
+cout<<"  Region        : "<<reg<<endl;
+cout<<"--------------------------------------------"<<endl;
+}
+ifile>>vid>>aadhar>>name>>age>>gender>>add>>reg;
+}
+}
+ifile.close();
+getch();
+}
+
+
+int main()
+{
+
+int ch;
+record r;
+char buffer[100];
+for(;;)
+{
+clrscr();
+cout<<"---------------------------------------------"<<endl;
+cout<<"MAIN MENU"<<endl;
+cout<<"---------------------------------------------"<<endl;
+cout<<" "<<endl;
+cout<<"  1 : Display all Voter Records"<<endl;
+cout<<"  2 : Add Record"<<endl;
+cout<<"  3 : Search Record"<<endl;
+cout<<"  4 : Update Record"<<endl;
+cout<<"  5 : Regional Records"<<endl;
+cout<<"  6 : Exit"<<endl;
+cout<<" "<<endl;
+cout<<"---------------------------------------------"<<endl;
+cout<<"  Enter Your Choice [1-7] : ";
+cin>>ch;
+switch(ch)
+{
+case 2: r.pack();
+	break;
+case 1: r.unpack();
+	break;
+case 3: r.search();
+	break;
+case 4: r.update();
+	break;
+case 5: r.region();
+	break;
+case 6: exit(0);
+default: cout<<"   Invalid Choice.Enter [1-6]   "<<endl;
+
+}
+}
+getch();
+return 0;
+}
